@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condomínio Fácil</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header class="topo">
+        <div class="marca">
+            <div class="logo">🏢</div>
+            <div>
+                <h1>Condomínio Guaramirim</h1>
+                <p>Sistema de Gestão de Condomínio</p>
+            </div>
+        </div>
+    </header>
+
+    <nav class="menu">
+        <button class="menu-btn ativo" data-page="inicio">🏠 Início</button>
+        <button class="menu-btn" data-page="blocos">🏢 Blocos</button>
+        <button class="menu-btn" data-page="apartamentos">🚪 Apartamentos</button>
+        <button class="menu-btn" data-page="moradores">👥 Moradores</button>
+        <button class="menu-btn" data-page="pagamentos">💳 Pagamentos</button>
+        <button class="menu-btn" data-page="tipos">🔧 Manutenção</button>
+    </nav>
+
+    <main class="container">
+        <section id="inicio" class="pagina ativa">
+            <div class="hero">
+                <div>
+                    <span class="etiqueta">GESTÃO MARCO E GABRIEL</span>
+                    <h2>Painel de Administrador do Condomínio</h2>
+                </div>
+                <div class="hero-icone">🏠</div>
+            </div>
+
+            <div class="cards-resumo" id="cardsResumo">
+                <div class="card-resumo"><span>🏢</span><strong id="totalBlocos">0</strong><small>Blocos</small></div>
+                <div class="card-resumo"><span>🚪</span><strong id="totalApartamentos">0</strong><small>Apartamentos</small></div>
+                <div class="card-resumo"><span>👥</span><strong id="totalMoradores">0</strong><small>Moradores</small></div>
+                <div class="card-resumo"><span>💳</span><strong id="totalPagamentos">0</strong><small>Pagamentos</small></div>
+                <div class="card-resumo"><span>🔧</span><strong id="totalManutencoes">0</strong><small>Manutenções</small></div>
+            </div>
+
+            <div class="atalhos">
+                <h3>Acesso rápido</h3>
+                <div class="atalho-grid">
+                    <button onclick="abrirPagina('blocos')">Cadastrar bloco <span>→</span></button>
+                    <button onclick="abrirPagina('apartamentos')">Cadastrar apartamento <span>→</span></button>
+                    <button onclick="abrirPagina('moradores')">Cadastrar morador <span>→</span></button>
+                    <button onclick="abrirPagina('pagamentos')">Registrar pagamento <span>→</span></button>
+                </div>
+            </div>
+        </section>
+
+        <section id="blocos" class="pagina">
+            <div class="titulo-pagina">
+                <div><span class="mini-etiqueta">HU001 / HU002</span><h2>Blocos</h2><p>Cadastre e mantenha os blocos do condomínio.</p></div>
+                <button class="botao-secundario" onclick="novoBloco()">+ Novo bloco</button>
+            </div>
+
+            <div class="painel">
+                <form id="formBloco" class="formulario">
+                    <input type="hidden" id="blocoId">
+                    <label>Descrição do bloco<input type="text" id="blocoDescricao" placeholder="Ex.: Bloco A" required></label>
+                    <label>Quantidade de apartamentos<input type="number" id="blocoQtd" min="1" placeholder="Ex.: 30" required></label>
+                    <div class="acoes-form">
+                        <button class="botao-principal" type="submit">Salvar bloco</button>
+                        <button class="botao-cinza" type="button" onclick="novoBloco()">Limpar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="painel">
+                <div class="cabecalho-lista"><div><h3>Blocos cadastrados</h3><p>Pesquise e gerencie os registros.</p></div><div class="busca"><input id="blocoBusca" placeholder="Pesquisar bloco"><button onclick="carregarBlocos()">Pesquisar</button></div></div>
+                <div id="listaBlocos" class="tabela-wrap"></div>
+            </div>
+        </section>
+
+        <section id="apartamentos" class="pagina">
+            <div class="titulo-pagina">
+                <div><span class="mini-etiqueta">HU003 / HU004</span><h2>Apartamentos</h2><p>Associe cada apartamento a um bloco.</p></div>
+                <button class="botao-secundario" onclick="novoApto()">+ Novo apartamento</button>
+            </div>
+
+            <div class="painel">
+                <form id="formApto" class="formulario">
+                    <input type="hidden" id="aptoId">
+                    <label>Bloco<select id="aptoBloco" required></select></label>
+                    <label>Número do apartamento<input type="text" id="aptoNumero" placeholder="Ex.: 101" required></label>
+                    <div class="acoes-form"><button class="botao-principal" type="submit">Salvar apartamento</button><button class="botao-cinza" type="button" onclick="novoApto()">Limpar</button></div>
+                </form>
+            </div>
+
+            <div class="painel">
+                <div class="cabecalho-lista"><div><h3>Apartamentos cadastrados</h3><p>Visualize, altere ou exclua um registro.</p></div><div class="busca"><input id="aptoBusca" placeholder="Pesquisar apartamento"><button onclick="carregarApartamentos()">Pesquisar</button></div></div>
+                <div id="listaApartamentos" class="tabela-wrap"></div>
+            </div>
+        </section>
+
+        <section id="moradores" class="pagina">
+            <div class="titulo-pagina">
+                <div><span class="mini-etiqueta">HU005 / HU006</span><h2>Moradores</h2><p>Cadastre os moradores e seus dados principais.</p></div>
+                <button class="botao-secundario" onclick="novoMorador()">+ Novo morador</button>
+            </div>
+
+            <div class="painel">
+                <form id="formMorador" class="formulario formulario-grande">
+                    <input type="hidden" id="moradorId">
+                    <label>CPF<input type="text" id="moradorCpf" placeholder="000.000.000-00" required></label>
+                    <label>Nome<input type="text" id="moradorNome" placeholder="Nome completo" required></label>
+                    <label>Telefone<input type="text" id="moradorTelefone" placeholder="(47) 99999-9999" required></label>
+                    <label>Apartamento<select id="moradorApto" required></select></label>
+                    <label>Número da vaga<input type="text" id="moradorVaga" placeholder="Ex.: A-01"></label>
+                    <label>Placa do veículo<input type="text" id="moradorPlaca" placeholder="ABC1D23"></label>
+                    <label>Marca<input type="text" id="moradorMarca" placeholder="Ex.: Chevrolet"></label>
+                    <label>Modelo<input type="text" id="moradorModelo" placeholder="Ex.: Onix"></label>
+                    <label class="check"><input id="moradorResponsavel" type="checkbox"> Responsável pelo apartamento</label>
+                    <label class="check"><input id="moradorProprietario" type="checkbox"> Proprietário</label>
+                    <div class="acoes-form"><button class="botao-principal" type="submit">Salvar morador</button><button class="botao-cinza" type="button" onclick="novoMorador()">Limpar</button></div>
+                </form>
+            </div>
+
+            <div class="painel">
+                <div class="cabecalho-lista"><div><h3>Moradores cadastrados</h3><p>Consulte e altere os dados.</p></div><div class="busca"><input id="moradorBusca" placeholder="Pesquisar nome, CPF ou apartamento"><button onclick="carregarMoradores()">Pesquisar</button></div></div>
+                <div id="listaMoradores" class="tabela-wrap"></div>
+            </div>
+        </section>
+
+        <section id="pagamentos" class="pagina">
+            <div class="titulo-pagina">
+                <div><span class="mini-etiqueta">HU007</span><h2>Pagamentos</h2><p>Registre o pagamento do condomínio e veja os registros.</p></div>
+            </div>
+
+            <div class="painel">
+                <form id="formPagamento" class="formulario formulario-grande">
+                    <div class="campo-busca"><label>Apartamento<input id="pagAptoNumero" placeholder="Ex.: 101" required></label><button class="botao-cinza busca-apto" type="button" onclick="buscarDadosApartamento()">Buscar</button></div>
+                    <input id="pagAptoId" type="hidden"><input id="pagMoradorId" type="hidden">
+                    <label>CPF<input id="pagCpf" readonly></label>
+                    <label>Morador<input id="pagNome" readonly></label>
+                    <label>Telefone<input id="pagTelefone" readonly></label>
+                    <label>Mês/Ano de referência<select id="pagReferencia" required></select></label>
+                    <label>Valor<input id="pagValor" readonly></label>
+                    <label>Vencimento<input id="pagVencimento" readonly></label>
+                    <div class="acoes-form"><button class="botao-principal" type="submit">Registrar pagamento</button></div>
+                </form>
+            </div>
+
+            <div class="painel">
+                <div class="cabecalho-lista"><div><h3>Pagamentos registrados</h3><p>Histórico dos pagamentos feitos.</p></div></div>
+                <div id="listaPagamentos" class="tabela-wrap"></div>
+            </div>
+        </section>
+
+        <section id="tipos" class="pagina">
+            <div class="titulo-pagina">
+                <div><span class="mini-etiqueta">HU008 / HU009</span><h2>Manutenção</h2><p>Cadastre os tipos e registre manutenções do condomínio.</p></div>
+            </div>
+
+            <div class="duas-colunas">
+                <div class="painel">
+                    <div class="painel-titulo"><h3>Novo tipo de manutenção</h3></div>
+                    <form id="formTipo" class="formulario uma-coluna">
+                        <label>Descrição<input id="tipoDescricao" placeholder="Ex.: Pintura" required></label>
+                        <button class="botao-principal" type="submit">Cadastrar tipo</button>
+                    </form>
+                    <div id="listaTipos" class="tabela-wrap"></div>
+                </div>
+
+                <div class="painel">
+                    <div class="painel-titulo"><h3>Registrar manutenção</h3></div>
+                    <form id="formManutencao" class="formulario uma-coluna">
+                        <label>Tipo de manutenção<select id="manTipo" required></select></label>
+                        <label>Data<input id="manData" type="date" required></label>
+                        <label>Local<input id="manLocal" placeholder="Ex.: Hall do Bloco A" required></label>
+                        <button class="botao-principal" type="submit">Salvar manutenção</button>
+                    </form>
+                    <div id="listaManutencoes" class="tabela-wrap"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="modal" class="modal">
+        <div class="modal-caixa">
+            <button class="modal-fechar" onclick="fecharModal()">×</button>
+            <h3 id="modalTitulo">Detalhes</h3>
+            <div id="modalConteudo"></div>
+        </div>
+    </div>
+
+    <div id="msg" class="mensagem"></div>
+
+    <script src="/app.js"></script>
+</body>
+</html>

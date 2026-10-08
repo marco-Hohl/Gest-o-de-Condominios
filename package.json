@@ -1,0 +1,15 @@
+{
+  "name": "gestao-condominio-node-mysql",
+  "version": "2.0.0",
+  "description": "Sistema simples de Gestão de Condomínio com Node.js, Express e MySQL.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js",
+    "check": "node --check app.js && node --check public/app.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql2": "^3.20.0"
+  }
+}
